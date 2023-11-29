@@ -12,9 +12,6 @@ public class ServiceImpl extends ServiceImplBase {
 
     @Override
     public void unaryCall(Request request, StreamObserver<Response> responseObserver) {
-
-        System.out.println("Requisição recebida: " + request.getMsg());
-
         final var response = Response.newBuilder()
                 .setMsg("Requisição processada")
                 .build();

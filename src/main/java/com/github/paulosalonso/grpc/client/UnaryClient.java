@@ -3,8 +3,12 @@ package com.github.paulosalonso.grpc.client;
 import grpc.test.Request;
 import grpc.test.ServiceGrpc;
 import io.grpc.ManagedChannel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UnaryClient {
+
+    private static final Logger LOG = LoggerFactory.getLogger(UnaryClient.class);
 
     public UnaryClient(ManagedChannel channel) {
         this.channel = channel;
@@ -13,7 +17,7 @@ public class UnaryClient {
     private final ManagedChannel channel;
 
     public String unaryCall() {
-        System.out.println("Realizando chamada ao método \"unário\" do servidor gRPC");
+        LOG.info("Realizando chamada ao método \"unário\" do servidor gRPC");
 
         final var stub = ServiceGrpc.newBlockingStub(channel);
 

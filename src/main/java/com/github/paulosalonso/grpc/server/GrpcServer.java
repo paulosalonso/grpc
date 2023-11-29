@@ -3,20 +3,24 @@ package com.github.paulosalonso.grpc.server;
 import com.github.paulosalonso.grpc.server.service.ServiceImpl;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.ConsoleHandler;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 
 public class GrpcServer {
+
+    private static final Logger LOG = LoggerFactory.getLogger(GrpcServer.class);
 
     private final int port;
     private final Server server;
 
     public GrpcServer(int port) {
-        Logger.getLogger("io.grpc").setLevel(Level.ALL);
-        Logger.getLogger("io.grpc").addHandler(new ConsoleHandler());
+//        Logger.getLogger("io.grpc").setLevel(Level.ALL);
+//        Logger.getLogger("io.grpc").addHandler(new ConsoleHandler());
 
         this.port = port;
         this.server = ServerBuilder.forPort(port)
@@ -26,10 +30,11 @@ public class GrpcServer {
 
     public void start() throws IOException {
         server.start();
-        System.out.println("Servidor gRPC iniciado, ouvindo a porta " + port);
+
+        LOG.info("Servidor gRPC iniciado, ouvindo a porta " + port);
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("Desligando o servidor gRPC");
+            LOG.info("Desligando o servidor gRPC");
             GrpcServer.this.stop();
         }));
     }

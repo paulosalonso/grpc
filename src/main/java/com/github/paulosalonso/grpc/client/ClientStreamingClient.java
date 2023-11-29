@@ -5,6 +5,8 @@ import grpc.test.Response;
 import grpc.test.ServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.stub.StreamObserver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +17,8 @@ import static java.util.Collections.unmodifiableList;
 
 public class ClientStreamingClient {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ClientStreamingClient.class);
+
     public ClientStreamingClient(ManagedChannel channel) {
         this.channel = channel;
     }
@@ -22,7 +26,7 @@ public class ClientStreamingClient {
     private final ManagedChannel channel;
 
     public CompletableFuture<List<String>> clientStreamingCall() {
-        System.out.println("Realizando chamada ao método \"client streaming\" do servidor gRPC");
+        LOG.info("Realizando chamada ao método \"client streaming\" do servidor gRPC");
 
         final var completableFuture = new CompletableFuture<List<String>>();
         final var responseObserver = new ResponseObserver(completableFuture);
