@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "grpc.test";
+option java_outer_classname = "GrpcTest";
+
+package grpc.test;
+
+service Service {
+  rpc unaryCall(Request) returns (Response) {}
+  rpc serverStreamingCall(Request) returns (stream Response);
+  rpc clientStreamingCall(stream Request) returns (Response);
+  rpc bidirectionalStreamingCall(stream Request) returns (stream Response);
+}
+
+message Request {
+  string msg = 1;
+}
+
+message Response {
+  string msg = 1;
+}
